@@ -6,7 +6,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-//    removeWindowResize();
 
     widget = new QWidget(this);
     layout = new QGridLayout(widget);
@@ -15,8 +14,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(loadImageButton, SIGNAL(clicked()), this, SLOT(loadImage()));
     layout->addWidget(loadImageButton);
 
-    imagePath = new QLineEdit(widget);
-    layout->addWidget(imagePath);
+    applyAlgorithmButton = new QPushButton("Apply Algorithm", widget);
+    connect(applyAlgorithmButton, SIGNAL(clicked()), this, SLOT(applyAlgorithm()));
+    layout->addWidget(applyAlgorithmButton);
+
+    imageLabel = new QLabel(widget);
+    imageLabel->setFixedSize(800, 450);
+    layout->addWidget(imageLabel);
 
     widget->setLayout(layout);
     setCentralWidget(widget);
@@ -29,6 +33,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::loadImage()
 {
-    QString path = QFileDialog::getOpenFileName(this, "Open image", "/");
-    imagePath->setText(path);
+    QString path = QFileDialog::getOpenFileName(this, "Open image", "/home/niki/Dropbox", "Images (*.png *.img *.jpg *.xpm)");
+
+    image = new QImage(path);
+    QPixmap pixmap = QPixmap::fromImage(*image);
+    pixmap = pixmap.scaled(imageLabel->width(), imageLabel->height(), Qt::KeepAspectRatio);
+    imageLabel->setPixmap(pixmap);
+}
+
+void MainWindow::applyAlgorithm()
+{
+
 }

@@ -5,7 +5,9 @@
 #include <QGridLayout>
 #include <QPushButton>
 #include <QFileDialog>
-#include <QLineEdit>
+#include <QLabel>
+#include <QImage>
+#include <QPixmap>
 
 namespace Ui {
 class MainWindow;
@@ -21,13 +23,16 @@ public:
 
 private slots:
     void loadImage();
+    void applyAlgorithm();
 
 private:
     Ui::MainWindow *ui;
     QWidget* widget;
     QGridLayout* layout;
     QPushButton* loadImageButton;
-    QLineEdit* imagePath;
+    QPushButton* applyAlgorithmButton;
+    QLabel* imageLabel;
+    QImage* image;
 };
 
 #endif // MAINWINDOW_H
