@@ -9,6 +9,9 @@
 #include <QImage>
 #include <QPixmap>
 
+#define IMAGE_WIDTH 800
+#define IMAGE_HEIGHT 450
+
 namespace Ui {
 class MainWindow;
 }

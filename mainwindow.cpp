@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     layout->addWidget(applyAlgorithmButton);
 
     imageLabel = new QLabel(widget);
-    imageLabel->setFixedSize(800, 450);
+    imageLabel->setFixedSize(IMAGE_WIDTH, IMAGE_HEIGHT);
     layout->addWidget(imageLabel);
 
     widget->setLayout(layout);
