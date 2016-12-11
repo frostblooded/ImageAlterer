@@ -9,6 +9,8 @@
 #include <QImage>
 #include <QPixmap>
 
+#include "imageblurrer.h"
+
 #define IMAGE_WIDTH 800
 #define IMAGE_HEIGHT 450
 
@@ -29,6 +31,8 @@ private slots:
     void applyAlgorithm();
 
 private:
+    void updateImageLabel(QImage*);
+
     Ui::MainWindow *ui;
     QWidget* widget;
     QGridLayout* layout;

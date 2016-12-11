@@ -13,8 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    imageblurrer.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    imageblurrer.h
 
 FORMS    += mainwindow.ui

@@ -37,6 +37,11 @@ void MainWindow::loadImage()
     QString path = QFileDialog::getOpenFileName(this, "Open image", "C:\\Users\\frost\\Dropbox", "Images (*.png *.img *.jpg *.xpm)");
 
     image = new QImage(path);
+    updateImageLabel(image);
+}
+
+void MainWindow::updateImageLabel(QImage* image)
+{
     QPixmap pixmap = QPixmap::fromImage(*image);
     pixmap = pixmap.scaled(imageLabel->width(), imageLabel->height(), Qt::KeepAspectRatio);
     imageLabel->setPixmap(pixmap);
@@ -44,5 +49,6 @@ void MainWindow::loadImage()
 
 void MainWindow::applyAlgorithm()
 {
-
+    image = ImageBlurrer::blur(image);
+    updateImageLabel(image);
 }
