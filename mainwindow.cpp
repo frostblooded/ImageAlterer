@@ -33,7 +33,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::loadImage()
 {
-    QString path = QFileDialog::getOpenFileName(this, "Open image", "/home/niki/Dropbox", "Images (*.png *.img *.jpg *.xpm)");
+    QString path = QFileDialog::getOpenFileName(this, "Open image", "C:\\Users\\frost\\Dropbox", "Images (*.png *.img *.jpg *.xpm)");
 
     image = new QImage(path);
     QPixmap pixmap = QPixmap::fromImage(*image);
