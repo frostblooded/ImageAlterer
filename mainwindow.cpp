@@ -33,6 +33,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::loadImage()
 {
+    imageLabel->setText("loading image...");
     QString path = QFileDialog::getOpenFileName(this, "Open image", "C:\\Users\\frost\\Dropbox", "Images (*.png *.img *.jpg *.xpm)");
 
     image = new QImage(path);
