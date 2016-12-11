@@ -15,7 +15,7 @@ public:
 private:
     static float FILTER_MATRIX[FILTER_MATRIX_SIZE][FILTER_MATRIX_SIZE];
 
-    static QRgb** get_pixel_neighbours(QImage*, int, int);
+    static QColor*** get_pixel_neighbours(QImage*, int, int);
     static QRgb blur(QImage*, int, int);
 };
 
