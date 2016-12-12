@@ -29,14 +29,14 @@ QImage* ImageBlurrer::blur(QImage* image, int blur_strength)
 
 QRgb ImageBlurrer::blur(QImage* image, int blur_strength, int x, int y)
 {
-    QColor*** neighbours = get_pixel_neighbours(image, x, y);
+    QColor*** neighbours = get_pixel_neighbours(image, blur_strength, x, y);
     QRgb new_pixel = qRgb(0, 0, 0);
 
     double blur_multiplier = 1.0 / (blur_strength * blur_strength);
 
-    for(int i = 0; i < FILTER_MATRIX_SIZE; i++)
+    for(int i = 0; i < blur_strength; i++)
     {
-        for(int j = 0; j < FILTER_MATRIX_SIZE; j++)
+        for(int j = 0; j < blur_strength; j++)
         {
             int new_red = qRed(new_pixel) + neighbours[i][j]->red() * blur_multiplier;
             int new_green = qGreen(new_pixel) + neighbours[i][j]->green() * blur_multiplier;
@@ -49,23 +49,23 @@ QRgb ImageBlurrer::blur(QImage* image, int blur_strength, int x, int y)
     return new_pixel;
 }
 
-QColor*** ImageBlurrer::get_pixel_neighbours(QImage* image, int x, int y)
+QColor*** ImageBlurrer::get_pixel_neighbours(QImage* image, int blur_strength, int x, int y)
 {
-    QColor*** neighbours = new QColor**[FILTER_MATRIX_SIZE]();
+    QColor*** neighbours = new QColor**[blur_strength]();
 
-    for(int i = 0; i < FILTER_MATRIX_SIZE; i++) {
-        neighbours[i] = new QColor*[FILTER_MATRIX_SIZE]();
+    for(int i = 0; i < blur_strength; i++) {
+        neighbours[i] = new QColor*[blur_strength]();
 
-        for(int j = 0; j < FILTER_MATRIX_SIZE; j++) {
+        for(int j = 0; j < blur_strength; j++) {
             neighbours[i][j] = new QColor(0, 0, 0);
         }
     }
 
-    int offset = FILTER_MATRIX_SIZE / 2;
+    int offset = blur_strength / 2;
     int starting_x = std::max(x, offset);
     int starting_y = std::max(y, offset);
-    int ending_x = std::min(x + FILTER_MATRIX_SIZE, image->width() - 1);
-    int ending_y = std::min(y + FILTER_MATRIX_SIZE, image->height() - 1);
+    int ending_x = std::min(x + blur_strength, image->width() - 1);
+    int ending_y = std::min(y + blur_strength, image->height() - 1);
 
     for(int i = starting_x; i < ending_x; i++)
     {
