@@ -45,12 +45,15 @@ void MainWindow::loadImage()
     imageLabel->setText("loading image...");
     QString path = QFileDialog::getOpenFileName(this, "Open image", "C:\\Users\\frost\\Dropbox", "Images (*.png *.img *.jpg *.xpm)");
 
-    image = new QImage(path);
-    updateImageLabel(image);
+    updateImageLabel(new QImage(path));
 }
 
-void MainWindow::updateImageLabel(QImage* image)
+void MainWindow::updateImageLabel(QImage* new_image)
 {
+    if(image)
+        delete image;
+
+    image = new_image;
     QPixmap pixmap = QPixmap::fromImage(*image);
     pixmap = pixmap.scaled(imageLabel->width(), imageLabel->height(), Qt::KeepAspectRatio);
     imageLabel->setPixmap(pixmap);
