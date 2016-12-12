@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(loadImageButton, SIGNAL(clicked()), this, SLOT(loadImage()));
     layout->addWidget(loadImageButton);
 
-    applyAlgorithmButton = new QPushButton("Apply Algorithm", widget);
+    applyAlgorithmButton = new QPushButton("Blur image", widget);
     connect(applyAlgorithmButton, SIGNAL(clicked()), this, SLOT(applyAlgorithm()));
     layout->addWidget(applyAlgorithmButton);
 
@@ -35,10 +35,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::loadImage()
 {
-    imageLabel->setText("loading image...");
-    QString path = QFileDialog::getOpenFileName(this, "Open image", "C:\\Users\\frost\\Dropbox", "Images (*.png *.img *.jpg *.xpm)");
+    QString path = QFileDialog::getOpenFileName(this, "Open image", "C:\\", "Images (*.png *.img *.jpg *.xpm)");
 
-    updateImageLabel(new QImage(path));
+    if(!path.isEmpty()) {
+        imageLabel->setText("loading image...");
+        updateImageLabel(new QImage(path));
+    }
 }
 
 void MainWindow::updateImageLabel(QImage* new_image)
