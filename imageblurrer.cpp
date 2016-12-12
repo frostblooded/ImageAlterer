@@ -1,8 +1,13 @@
 #include "imageblurrer.h"
 
 QProgressDialog* ImageBlurrer::progress_dialog;
+float ImageBlurrer::FILTER_MATRIX[FILTER_MATRIX_SIZE][FILTER_MATRIX_SIZE] = {{0.01, 0.02, 0.04, 0.02, 0.01},
+                                                                             {0.02, 0.04, 0.08, 0.04, 0.02},
+                                                                             {0.04, 0.08, 0.16, 0.08, 0.04},
+                                                                             {0.02, 0.04, 0.08, 0.04, 0.02},
+                                                                             {0.01, 0.02, 0.04, 0.02, 0.01}};
 
-QImage* ImageBlurrer::blur(QImage* image, int blur_strength)
+QImage* ImageBlurrer::blur(QImage* image)
 {
     if(!image)
         return NULL;
@@ -14,7 +19,7 @@ QImage* ImageBlurrer::blur(QImage* image, int blur_strength)
 
     for(int i = 0; i < image->width(); i++) {
         for(int j = 0; j < image->height(); j++) {
-            result_image->setPixel(i, j, blur(image, blur_strength, i, j));
+            result_image->setPixel(i, j, blur(image, i, j));
         }
 
         if(progress_dialog->wasCanceled())
@@ -27,51 +32,55 @@ QImage* ImageBlurrer::blur(QImage* image, int blur_strength)
     return result_image;
 }
 
-QRgb ImageBlurrer::blur(QImage* image, int blur_strength, int x, int y)
+QRgb ImageBlurrer::blur(QImage* image, int x, int y)
 {
-    QColor*** neighbours = get_pixel_neighbours(image, blur_strength, x, y);
+    QColor*** neighbours = get_pixel_neighbours(image, x, y);
     QRgb new_pixel = qRgb(0, 0, 0);
 
-    double blur_multiplier = 1.0 / (blur_strength * blur_strength);
-
-    for(int i = 0; i < blur_strength; i++)
+    for(int i = 0; i < FILTER_MATRIX_SIZE; i++)
     {
-        for(int j = 0; j < blur_strength; j++)
+        for(int j = 0; j < FILTER_MATRIX_SIZE; j++)
         {
-            int new_red = qRed(new_pixel) + neighbours[i][j]->red() * blur_multiplier;
-            int new_green = qGreen(new_pixel) + neighbours[i][j]->green() * blur_multiplier;
-            int new_blue = qBlue(new_pixel) + neighbours[i][j]->blue() * blur_multiplier;
+            int new_red = qRed(new_pixel) + neighbours[i][j]->red() * FILTER_MATRIX[i][j];
+            int new_green = qGreen(new_pixel) + neighbours[i][j]->green() * FILTER_MATRIX[i][j];
+            int new_blue = qBlue(new_pixel) + neighbours[i][j]->blue() * FILTER_MATRIX[i][j];
 
             new_pixel = qRgb(new_red, new_green, new_blue);
+            delete neighbours[i][j];
         }
+
+        delete neighbours[i];
     }
 
+    delete neighbours;
     return new_pixel;
 }
 
-QColor*** ImageBlurrer::get_pixel_neighbours(QImage* image, int blur_strength, int x, int y)
+QColor*** ImageBlurrer::get_pixel_neighbours(QImage* image, int x, int y)
 {
-    QColor*** neighbours = new QColor**[blur_strength]();
+    QColor*** neighbours = new QColor**[FILTER_MATRIX_SIZE]();
 
-    for(int i = 0; i < blur_strength; i++) {
-        neighbours[i] = new QColor*[blur_strength]();
+    for(int i = 0; i < FILTER_MATRIX_SIZE; i++) {
+        neighbours[i] = new QColor*[FILTER_MATRIX_SIZE]();
 
-        for(int j = 0; j < blur_strength; j++) {
+        for(int j = 0; j < FILTER_MATRIX_SIZE; j++) {
             neighbours[i][j] = new QColor(0, 0, 0);
         }
     }
 
-    int offset = blur_strength / 2;
+    int offset = FILTER_MATRIX_SIZE / 2;
     int starting_x = std::max(x, offset);
     int starting_y = std::max(y, offset);
-    int ending_x = std::min(x + blur_strength, image->width() - 1);
-    int ending_y = std::min(y + blur_strength, image->height() - 1);
+    int ending_x = std::min(x + FILTER_MATRIX_SIZE, image->width() - 1);
+    int ending_y = std::min(y + FILTER_MATRIX_SIZE, image->height() - 1);
 
     for(int i = starting_x; i < ending_x; i++)
     {
         for(int j = starting_y; j < ending_y; j++)
         {
             QRgb pixel = image->pixel(i, j);
+            delete neighbours[i - x][j - y];
+
             neighbours[i - x][j - y] = new QColor(pixel);
         }
     }

@@ -14,15 +14,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(loadImageButton, SIGNAL(clicked()), this, SLOT(loadImage()));
     layout->addWidget(loadImageButton);
 
-    blurStrengthLabel = new QLabel("Blur strength:", widget);
-    layout->addWidget(blurStrengthLabel);
-
-    blurStrengthSlider = new QSlider(Qt::Horizontal, widget);
-    connect(blurStrengthSlider, SIGNAL(valueChanged(int)), this, SLOT(setBlurStrength(int)));
-    blurStrengthSlider->setRange(3, 15);
-    blurStrengthSlider->setSingleStep(2);
-    layout->addWidget(blurStrengthSlider);
-
     applyAlgorithmButton = new QPushButton("Apply Algorithm", widget);
     connect(applyAlgorithmButton, SIGNAL(clicked()), this, SLOT(applyAlgorithm()));
     layout->addWidget(applyAlgorithmButton);
@@ -30,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent) :
     imageLabel = new QLabel(widget);
     imageLabel->setFixedSize(IMAGE_WIDTH, IMAGE_HEIGHT);
     layout->addWidget(imageLabel);
+
+    image = NULL;
 
     widget->setLayout(layout);
     setCentralWidget(widget);
@@ -50,9 +43,6 @@ void MainWindow::loadImage()
 
 void MainWindow::updateImageLabel(QImage* new_image)
 {
-    if(image)
-        delete image;
-
     image = new_image;
     QPixmap pixmap = QPixmap::fromImage(*image);
     pixmap = pixmap.scaled(imageLabel->width(), imageLabel->height(), Qt::KeepAspectRatio);
@@ -61,11 +51,6 @@ void MainWindow::updateImageLabel(QImage* new_image)
 
 void MainWindow::applyAlgorithm()
 {
-    image = ImageBlurrer::blur(image, blurStrength);
+    image = ImageBlurrer::blur(image);
     updateImageLabel(image);
-}
-
-void MainWindow::setBlurStrength(int strength)
-{
-    blurStrength = strength;
 }

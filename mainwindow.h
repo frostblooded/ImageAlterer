@@ -30,19 +30,14 @@ public:
 private slots:
     void loadImage();
     void applyAlgorithm();
-    void setBlurStrength(int);
 
 private:
     void updateImageLabel(QImage*);
-
-    int blurStrength;
 
     Ui::MainWindow *ui;
     QWidget* widget;
     QGridLayout* layout;
     QPushButton* loadImageButton;
-    QLabel* blurStrengthLabel;
-    QSlider* blurStrengthSlider;
     QPushButton* applyAlgorithmButton;
     QLabel* imageLabel;
     QImage* image;

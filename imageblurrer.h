@@ -7,14 +7,19 @@
 #include <QProgressDialog>
 #include <QApplication>
 
+
+#define FILTER_MATRIX_SIZE 5
+
 class ImageBlurrer
 {
 public:
-    static QImage* blur(QImage*, int);
+    static QImage* blur(QImage*);
 
 private:
-    static QColor*** get_pixel_neighbours(QImage*, int, int, int);
-    static QRgb blur(QImage*, int, int, int);
+    static float FILTER_MATRIX[FILTER_MATRIX_SIZE][FILTER_MATRIX_SIZE];
+
+    static QColor*** get_pixel_neighbours(QImage*, int, int);
+    static QRgb blur(QImage*, int, int);
 
     static QProgressDialog* progress_dialog;
 };
