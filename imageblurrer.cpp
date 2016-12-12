@@ -76,9 +76,9 @@ QColor*** ImageBlurrer::get_pixel_neighbours(QImage* image, int x, int y)
     {
         for(int j = starting_y; j < y + FILTER_MATRIX_SIZE; j++)
         {
-//            QRgb pixel = image->pixel(i - offset + x, j - offset + y);
-//            neighbours[i][j] = new QColor(pixel);
-            neighbours[i][j] = image->pixelColor(i - offset + x, j - offset + y);
+            QRgb pixel = image->pixel(i - offset + x, j - offset + y);
+            neighbours[i][j] = new QColor(pixel);
+//            neighbours[i][j] = image->pixelColor(i - offset + x, j - offset + y);
         }
     }
 
