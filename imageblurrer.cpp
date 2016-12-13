@@ -1,6 +1,8 @@
 #include "imageblurrer.h"
 
 QProgressDialog* ImageBlurrer::progress_dialog;
+
+// Filter matrix which shows how much neighbouring pixels affect the current pixel's colour
 float ImageBlurrer::FILTER_MATRIX[FILTER_MATRIX_SIZE][FILTER_MATRIX_SIZE] = {{0.01, 0.02, 0.04, 0.02, 0.01},
                                                                              {0.02, 0.04, 0.08, 0.04, 0.02},
                                                                              {0.04, 0.08, 0.16, 0.08, 0.04},
@@ -12,6 +14,7 @@ QImage* ImageBlurrer::blur(QImage* image)
     if(!image)
         return NULL;
 
+    // Show progress dialog
     progress_dialog = new QProgressDialog("Blurring image...", "Abort Blur", 0, image->width() - 1);
     progress_dialog->setAutoClose(true);
 
@@ -19,6 +22,7 @@ QImage* ImageBlurrer::blur(QImage* image)
 
     for(int i = 0; i < image->width(); i++) {
         for(int j = 0; j < image->height(); j++) {
+            // Blur each pixel
             result_image->setPixel(i, j, blur(image, i, j));
         }
 
@@ -26,6 +30,9 @@ QImage* ImageBlurrer::blur(QImage* image)
             return image;
 
         progress_dialog->setValue(i);
+
+        // The application should explicitly be told to process events after
+        // the progress dialog is updated, so that it gets redrawn
         QApplication::processEvents();
     }
 
@@ -37,10 +44,12 @@ QRgb ImageBlurrer::blur(QImage* image, int x, int y)
     QColor*** neighbours = get_pixel_neighbours(image, x, y);
     QRgb new_pixel = qRgb(0, 0, 0);
 
+    // Find out resulting color based on neighbouring pixels
     for(int i = 0; i < FILTER_MATRIX_SIZE; i++)
     {
         for(int j = 0; j < FILTER_MATRIX_SIZE; j++)
         {
+            // Multiply each color to the multiplier from the filter matrix
             int new_red = qRed(new_pixel) + neighbours[i][j]->red() * FILTER_MATRIX[i][j];
             int new_green = qGreen(new_pixel) + neighbours[i][j]->green() * FILTER_MATRIX[i][j];
             int new_blue = qBlue(new_pixel) + neighbours[i][j]->blue() * FILTER_MATRIX[i][j];
@@ -60,6 +69,7 @@ QColor*** ImageBlurrer::get_pixel_neighbours(QImage* image, int x, int y)
 {
     QColor*** neighbours = new QColor**[FILTER_MATRIX_SIZE]();
 
+    // Initialize neighbours
     for(int i = 0; i < FILTER_MATRIX_SIZE; i++) {
         neighbours[i] = new QColor*[FILTER_MATRIX_SIZE]();
 
@@ -68,6 +78,12 @@ QColor*** ImageBlurrer::get_pixel_neighbours(QImage* image, int x, int y)
         }
     }
 
+    // Handle starting and ending coordinates, so that
+    // the algorithm doesn't attempt to get a pixel which
+    // is outside the image's bounds
+    //
+    // Neighbours which are outside the image's borders
+    // are returned as 0
     int offset = FILTER_MATRIX_SIZE / 2;
     int starting_x = std::max(x, offset);
     int starting_y = std::max(y, offset);
@@ -78,6 +94,7 @@ QColor*** ImageBlurrer::get_pixel_neighbours(QImage* image, int x, int y)
     {
         for(int j = starting_y; j < ending_y; j++)
         {
+            // Populate the neighbours matrix
             QRgb pixel = image->pixel(i, j);
             delete neighbours[i - x][j - y];
 
