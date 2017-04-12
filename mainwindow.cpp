@@ -16,8 +16,15 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(loadImageButton, SIGNAL(clicked()), this, SLOT(loadImage()));
     layout->addWidget(loadImageButton);
 
+    // Initialize dropdown menu for choosing the algorithm
+    algorithmComboBox = new QComboBox(widget);
+    algorithmComboBox->addItem("Motion Blur");
+    algorithmComboBox->addItem("Find Edges");
+    algorithmComboBox->addItem("Emboss");
+    layout->addWidget(algorithmComboBox);
+
     // Initialize button for applying algorithm
-    applyAlgorithmButton = new QPushButton("Blur image", widget);
+    applyAlgorithmButton = new QPushButton("Apply algorithm", widget);
     connect(applyAlgorithmButton, SIGNAL(clicked()), this, SLOT(applyAlgorithm()));
     layout->addWidget(applyAlgorithmButton);
 
@@ -62,6 +69,9 @@ void MainWindow::updateImageLabel(QImage* new_image)
 
 void MainWindow::applyAlgorithm()
 {
+    if(!image)
+        return;
+
     image = ImageBlurrer::blur(image);
     updateImageLabel(image);
 }

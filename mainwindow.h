@@ -9,6 +9,7 @@
 #include <QImage>
 #include <QPixmap>
 #include <QSlider>
+#include <QComboBox>
 
 #include "imageblurrer.h"
 
@@ -38,6 +39,7 @@ private:
     QWidget* widget;
     QGridLayout* layout;
     QPushButton* loadImageButton;
+    QComboBox* algorithmComboBox;
     QPushButton* applyAlgorithmButton;
     QLabel* imageLabel;
     QImage* image;
