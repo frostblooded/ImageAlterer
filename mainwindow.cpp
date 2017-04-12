@@ -21,8 +21,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Initialize dropdown menu for choosing the algorithm
     algorithmComboBox = new QComboBox(widget);
-    algorithmComboBox->addItem("Motion Blur");
-    algorithmComboBox->addItem("Find Edges");
+    algorithmComboBox->addItem("Motion blur");
+    algorithmComboBox->addItem("Find edges");
     algorithmComboBox->addItem("Emboss");
     layout->addWidget(algorithmComboBox);
 
@@ -77,13 +77,15 @@ void MainWindow::applyAlgorithm()
 
     QString algorithm = algorithmComboBox->currentText();
 
-    if(algorithm == "Motion Blur"){
+    if(algorithm == "Motion blur"){
         ImageBlurrer* algorithm_applier = new ImageBlurrer();
         image = algorithm_applier->apply(image);
         updateImageLabel(image);
     }
     else if(algorithm == "Find edges"){
-
+        ImageEdgeFinder* algorithm_applier = new ImageEdgeFinder();
+        image = algorithm_applier->apply(image);
+        updateImageLabel(image);
     }
     else if(algorithm == "Emboss"){
 

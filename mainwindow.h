@@ -12,6 +12,7 @@
 #include <QComboBox>
 
 #include "imageblurrer.h"
+#include "imageedgefinder.h"
 
 #define IMAGE_WIDTH 800
 #define IMAGE_HEIGHT 450

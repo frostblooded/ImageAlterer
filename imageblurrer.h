@@ -3,12 +3,12 @@
 
 #include <abstractalgorithm.h>
 
-#define MATRIX_SIZE 9
+#define BLURRER_MATRIX_SIZE 9
 
 class ImageBlurrer: public AbstractAlgorithm
 {
 public:
-    static float FILTER_MATRIX[MATRIX_SIZE][MATRIX_SIZE];
+    static float FILTER_MATRIX[BLURRER_MATRIX_SIZE][BLURRER_MATRIX_SIZE];
 
     virtual int get_matrix_size();
     virtual float get_filter_matrix_at(int, int);

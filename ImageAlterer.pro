@@ -15,10 +15,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     imageblurrer.cpp \
-    abstractalgorithm.cpp
+    abstractalgorithm.cpp \
+    imageedgefinder.cpp
 
 HEADERS  += mainwindow.h \
     imageblurrer.h \
-    abstractalgorithm.h
+    abstractalgorithm.h \
+    imageedgefinder.h
 
 FORMS    += mainwindow.ui

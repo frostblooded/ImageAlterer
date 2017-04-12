@@ -104,6 +104,10 @@ QRgb AbstractAlgorithm::apply(QImage* image, int x, int y)
     green = green / this->get_matrix_size();
     blue = blue / this->get_matrix_size();
 
+    red = std::min(std::max(red, 0), 255);
+    green = std::min(std::max(green, 0), 255);
+    blue = std::min(std::max(blue, 0), 255);
+
     new_pixel = qRgb(red, green, blue);
 
     delete neighbours;
