@@ -1,6 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+using namespace std;
+#include <iostream>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -72,6 +75,22 @@ void MainWindow::applyAlgorithm()
     if(!image)
         return;
 
-    image = ImageBlurrer::blur(image);
-    updateImageLabel(image);
+    QString algorithm = algorithmComboBox->currentText();
+
+    if(algorithm == "Motion Blur"){
+        ImageBlurrer* algorithm_applier = new ImageBlurrer();
+        image = algorithm_applier->apply(image);
+        updateImageLabel(image);
+    }
+    else if(algorithm == "Find edges"){
+
+    }
+    else if(algorithm == "Emboss"){
+
+    }
+
+    return;
+
+//    image = ImageBlurrer::blur(image);
+//    updateImageLabel(image);
 }

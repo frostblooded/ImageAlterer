@@ -14,9 +14,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    imageblurrer.cpp
+    imageblurrer.cpp \
+    abstractalgorithm.cpp
 
 HEADERS  += mainwindow.h \
-    imageblurrer.h
+    imageblurrer.h \
+    abstractalgorithm.h
 
 FORMS    += mainwindow.ui

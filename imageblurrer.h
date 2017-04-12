@@ -1,27 +1,17 @@
 #ifndef IMAGEBLURRER_H
 #define IMAGEBLURRER_H
 
-#include <QImage>
-#include <QColor>
-#include <QDebug>
-#include <QProgressDialog>
-#include <QApplication>
+#include <abstractalgorithm.h>
 
+#define MATRIX_SIZE 5
 
-#define FILTER_MATRIX_SIZE 5
-
-class ImageBlurrer
+class ImageBlurrer: public AbstractAlgorithm
 {
 public:
-    static QImage* blur(QImage*);
+    static float FILTER_MATRIX[MATRIX_SIZE][MATRIX_SIZE];
 
-private:
-    static float FILTER_MATRIX[FILTER_MATRIX_SIZE][FILTER_MATRIX_SIZE];
-
-    static QColor*** get_pixel_neighbours(QImage*, int, int);
-    static QRgb blur(QImage*, int, int);
-
-    static QProgressDialog* progress_dialog;
+    virtual int get_matrix_size();
+    virtual float get_filter_matrix_at(int, int);
 };
 
 #endif // IMAGEBLURRER_H
