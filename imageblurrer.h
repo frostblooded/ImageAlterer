@@ -3,7 +3,7 @@
 
 #include <abstractalgorithm.h>
 
-#define MATRIX_SIZE 5
+#define MATRIX_SIZE 9
 
 class ImageBlurrer: public AbstractAlgorithm
 {

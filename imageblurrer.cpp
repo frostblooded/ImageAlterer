@@ -1,10 +1,16 @@
 #include "imageblurrer.h"
 
-float ImageBlurrer::FILTER_MATRIX[MATRIX_SIZE][MATRIX_SIZE] = {{0.01, 0.02, 0.04, 0.02, 0.01},
-                                                               {0.02, 0.04, 0.08, 0.04, 0.02},
-                                                               {0.04, 0.08, 0.16, 0.08, 0.04},
-                                                               {0.02, 0.04, 0.08, 0.04, 0.02},
-                                                               {0.01, 0.02, 0.04, 0.02, 0.01}};
+float ImageBlurrer::FILTER_MATRIX[MATRIX_SIZE][MATRIX_SIZE] = {
+    1, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 1, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 1, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 1, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 1, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 1, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 1, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 1, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 1,
+ };
 
 int ImageBlurrer::get_matrix_size() {
     return MATRIX_SIZE;
