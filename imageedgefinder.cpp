@@ -15,3 +15,12 @@ int ImageEdgeFinder::get_matrix_size() {
 float ImageEdgeFinder::get_filter_matrix_at(int x, int y) {
     return ImageEdgeFinder::FILTER_MATRIX[x][y];
 }
+
+float ImageEdgeFinder::get_factor() {
+    return 1.0;
+}
+
+float ImageEdgeFinder::get_bias() {
+    return 0.0;
+}
+

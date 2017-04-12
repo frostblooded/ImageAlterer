@@ -88,7 +88,9 @@ void MainWindow::applyAlgorithm()
         updateImageLabel(image);
     }
     else if(algorithm == "Emboss"){
-
+        ImageEmbosser* algorithm_applier = new ImageEmbosser();
+        image = algorithm_applier->apply(image);
+        updateImageLabel(image);
     }
 
     return;

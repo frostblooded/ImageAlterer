@@ -13,6 +13,7 @@
 
 #include "imageblurrer.h"
 #include "imageedgefinder.h"
+#include "imageembosser.h"
 
 #define IMAGE_WIDTH 800
 #define IMAGE_HEIGHT 450

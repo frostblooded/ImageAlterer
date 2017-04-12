@@ -12,6 +12,8 @@ public:
 
     virtual int get_matrix_size();
     virtual float get_filter_matrix_at(int, int);
+    virtual float get_factor();
+    virtual float get_bias();
 };
 
 #endif // IMAGEEDGEFINDER_H

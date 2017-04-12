@@ -17,6 +17,8 @@ protected:
 
     virtual int get_matrix_size() = 0;
     virtual float get_filter_matrix_at(int, int) = 0;
+    virtual float get_factor() = 0;
+    virtual float get_bias() = 0;
 
     QColor*** get_pixel_neighbours(QImage*, int, int);
 

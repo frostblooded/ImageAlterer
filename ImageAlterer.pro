@@ -16,11 +16,13 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     imageblurrer.cpp \
     abstractalgorithm.cpp \
-    imageedgefinder.cpp
+    imageedgefinder.cpp \
+    imageembosser.cpp
 
 HEADERS  += mainwindow.h \
     imageblurrer.h \
     abstractalgorithm.h \
-    imageedgefinder.h
+    imageedgefinder.h \
+    imageembosser.h
 
 FORMS    += mainwindow.ui
