@@ -32,6 +32,7 @@ public:
 
 private slots:
     void loadImage();
+    void saveImage();
     void applyAlgorithm();
 
 private:
@@ -41,6 +42,7 @@ private:
     QWidget* widget;
     QGridLayout* layout;
     QPushButton* loadImageButton;
+    QPushButton* saveImageButton;
     QComboBox* algorithmComboBox;
     QPushButton* applyAlgorithmButton;
     QLabel* imageLabel;

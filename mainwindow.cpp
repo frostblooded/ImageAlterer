@@ -31,6 +31,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(applyAlgorithmButton, SIGNAL(clicked()), this, SLOT(applyAlgorithm()));
     layout->addWidget(applyAlgorithmButton);
 
+    // Initialize button for loading an image
+    saveImageButton = new QPushButton("Save Image", widget);
+    connect(saveImageButton, SIGNAL(clicked()), this, SLOT(saveImage()));
+    layout->addWidget(saveImageButton);
+
     // Initialize the label, which displays the image
     imageLabel = new QLabel(widget);
     imageLabel->setFixedSize(IMAGE_WIDTH, IMAGE_HEIGHT);
@@ -55,6 +60,16 @@ void MainWindow::loadImage()
     if(!path.isEmpty()) {
         imageLabel->setText("loading image...");
         updateImageLabel(new QImage(path));
+    }
+}
+
+void MainWindow::saveImage()
+{
+    // Open dialog so the user can select an image to be opened
+    QString path = QFileDialog::getSaveFileName(this, "Save image", "C:\\", "Images (*.png *.img *.jpg *.xpm)");
+
+    if(!path.isEmpty()) {
+        image->save(path);
     }
 }
 
