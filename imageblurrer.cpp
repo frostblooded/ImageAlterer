@@ -9,7 +9,7 @@ float ImageBlurrer::FILTER_MATRIX[BLURRER_MATRIX_SIZE][BLURRER_MATRIX_SIZE] = {
     0, 0, 0, 0, 0, 1, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 1, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 1, 0,
-0, 0, 0, 0, 0, 0, 0, 0, 1,
+    0, 0, 0, 0, 0, 0, 0, 0, 1,
 };
 
 int ImageBlurrer::get_matrix_size() {
