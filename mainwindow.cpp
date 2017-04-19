@@ -50,7 +50,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::initMenuBar() {
     menubar = new QMenuBar(widget);
-    menubar->setFixedHeight(25);
 
     QAction* load = new QAction("&Load", this);
     QAction* saveAs = new QAction("&Save as", this);
@@ -82,7 +81,7 @@ void MainWindow::loadImage()
 void MainWindow::saveImage()
 {
     // Open dialog so the user can select an image to be opened
-    QString path = QFileDialog::getSaveFileName(this, "Save image", "C:\\", "Images (*.png *.img *.jpg *.xpm)");
+    QString path = QFileDialog::getSaveFileName(this, "Save image", "C:\\image.png", "Images (*.png *.img *.jpg *.xpm)");
 
     if(!path.isEmpty()) {
         image->save(path);
@@ -109,6 +108,7 @@ void MainWindow::applyAlgorithm()
 
     QString algorithm = algorithmComboBox->currentText();
 
+    // Use the selected algorithm
     if(algorithm == "Motion blur"){
         ImageBlurrer* algorithm_applier = new ImageBlurrer();
         image = algorithm_applier->apply(image);
@@ -126,7 +126,4 @@ void MainWindow::applyAlgorithm()
     }
 
     return;
-
-//    image = ImageBlurrer::blur(image);
-//    updateImageLabel(image);
 }

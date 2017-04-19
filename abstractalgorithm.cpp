@@ -100,10 +100,7 @@ QRgb AbstractAlgorithm::apply(QImage* image, int x, int y)
         delete neighbours[i];
     }
 
-//    red = red / this->get_matrix_size();
-//    green = green / this->get_matrix_size();
-//    blue = blue / this->get_matrix_size();
-
+    // Set a minimum and maximum value for red, green and blue
     red = std::min(std::max(int(get_factor() * red + get_bias()), 0), 255);
     green = std::min(std::max(int(get_factor() * green + get_bias()), 0), 255);
     blue = std::min(std::max(int(get_factor() * blue + get_bias()), 0), 255);

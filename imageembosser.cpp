@@ -3,8 +3,8 @@
 float ImageEmbosser::FILTER_MATRIX[EMBOSSER_MATRIX_SIZE][EMBOSSER_MATRIX_SIZE] = {
     -1, -1,  0,
     -1,  0,  1,
-    0,  1,  1
- };
+     0,  1,  1
+};
 
 int ImageEmbosser::get_matrix_size() {
     return EMBOSSER_MATRIX_SIZE;

@@ -6,7 +6,7 @@ float ImageEdgeFinder::FILTER_MATRIX[EDGE_FINDER_MATRIX_SIZE][EDGE_FINDER_MATRIX
     0,  0,  2,  0,  0,
     0,  0,  0,  0,  0,
     0,  0,  0,  0,  0,
- };
+};
 
 int ImageEdgeFinder::get_matrix_size() {
     return EDGE_FINDER_MATRIX_SIZE;
