@@ -14,32 +14,28 @@ MainWindow::MainWindow(QWidget *parent) :
     widget = new QWidget(this);
     layout = new QGridLayout(widget);
 
-    // Initialize button for loading an image
-    loadImageButton = new QPushButton("Load Image", widget);
-    connect(loadImageButton, SIGNAL(clicked()), this, SLOT(loadImage()));
-    layout->addWidget(loadImageButton);
+    // Initialize menu bar
+    initMenuBar();
+    layout->setMenuBar(menubar);
 
     // Initialize dropdown menu for choosing the algorithm
     algorithmComboBox = new QComboBox(widget);
+    algorithmComboBox->setFixedSize(WINDOW_WIDTH * 40 / 100, 25);
     algorithmComboBox->addItem("Motion blur");
     algorithmComboBox->addItem("Find edges");
     algorithmComboBox->addItem("Emboss");
-    layout->addWidget(algorithmComboBox);
+    layout->addWidget(algorithmComboBox, 1, 0, 1, 1, Qt::AlignCenter);
 
     // Initialize button for applying algorithm
     applyAlgorithmButton = new QPushButton("Apply algorithm", widget);
+    applyAlgorithmButton->setFixedSize(WINDOW_WIDTH * 60 / 100, 25);
     connect(applyAlgorithmButton, SIGNAL(clicked()), this, SLOT(applyAlgorithm()));
-    layout->addWidget(applyAlgorithmButton);
-
-    // Initialize button for loading an image
-    saveImageButton = new QPushButton("Save Image", widget);
-    connect(saveImageButton, SIGNAL(clicked()), this, SLOT(saveImage()));
-    layout->addWidget(saveImageButton);
+    layout->addWidget(applyAlgorithmButton, 1, 1, 1, 1, Qt::AlignCenter);
 
     // Initialize the label, which displays the image
     imageLabel = new QLabel(widget);
     imageLabel->setFixedSize(IMAGE_WIDTH, IMAGE_HEIGHT);
-    layout->addWidget(imageLabel);
+    layout->addWidget(imageLabel, 2, 0, 1, 2);
 
     image = NULL;
 
@@ -50,6 +46,26 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::initMenuBar() {
+    menubar = new QMenuBar(widget);
+    menubar->setFixedHeight(25);
+
+    QAction* load = new QAction("&Load", this);
+    QAction* saveAs = new QAction("&Save as", this);
+
+    QMenu* fileMenu = new QMenu("&File");
+    QMenu* helpMenu = new QMenu("&Help");
+
+    fileMenu->addAction(load);
+    fileMenu->addAction(saveAs);
+
+    connect(load, SIGNAL(triggered()), this, SLOT(loadImage()));
+    connect(saveAs, SIGNAL(triggered()), this, SLOT(saveImage()));
+
+    menubar->addMenu(fileMenu);
+    menubar->addMenu(helpMenu);
 }
 
 void MainWindow::loadImage()
@@ -82,6 +98,7 @@ void MainWindow::updateImageLabel(QImage* new_image)
     pixmap = pixmap.scaled(imageLabel->width(), imageLabel->height(), Qt::KeepAspectRatio);
 
     // Set image
+    imageLabel->show();
     imageLabel->setPixmap(pixmap);
 }
 

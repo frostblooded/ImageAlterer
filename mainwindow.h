@@ -10,12 +10,17 @@
 #include <QPixmap>
 #include <QSlider>
 #include <QComboBox>
+#include <QMenuBar>
+#include <QMenu>
+#include <QAction>
 
 #include "imageblurrer.h"
 #include "imageedgefinder.h"
 #include "imageembosser.h"
 
-#define IMAGE_WIDTH 800
+#define WINDOW_WIDTH 800
+
+#define IMAGE_WIDTH WINDOW_WIDTH
 #define IMAGE_HEIGHT 450
 
 namespace Ui {
@@ -37,12 +42,12 @@ private slots:
 
 private:
     void updateImageLabel(QImage*);
+    void initMenuBar();
 
     Ui::MainWindow *ui;
     QWidget* widget;
     QGridLayout* layout;
-    QPushButton* loadImageButton;
-    QPushButton* saveImageButton;
+    QMenuBar* menubar;
     QComboBox* algorithmComboBox;
     QPushButton* applyAlgorithmButton;
     QLabel* imageLabel;
