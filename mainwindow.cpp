@@ -28,7 +28,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Initialize button for applying algorithm
     applyAlgorithmButton = new QPushButton(widget);
-//    applyAlgorithmButton->setFixedSize(WINDOW_WIDTH * 60 / 100, 25);
     applyAlgorithmButton->setIcon(QIcon(":/images/button.png"));
     applyAlgorithmButton->setStyleSheet("background-color: transparent; border: 0;");
     applyAlgorithmButton->setAutoFillBackground(true);

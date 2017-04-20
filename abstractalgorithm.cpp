@@ -48,14 +48,16 @@ QImage* AbstractAlgorithm::apply(QImage* image)
     if(!image)
         return NULL;
 
+    int offset = this->get_matrix_size() / 2;
+
     // Show progress dialog
-    progress_dialog = new QProgressDialog("Applying algorithm...", "Abort", 0, image->width() - 2);
+    progress_dialog = new QProgressDialog("Applying algorithm...", "Abort", 0, image->width() - offset - 1);
     progress_dialog->setAutoClose(true);
 
     QImage* result_image = new QImage(image->width(), image->height(), image->format());
 
-    for(int i = 1; i < image->width() - 1; i++) {
-        for(int j = 1; j < image->height() - 1; j++) {
+    for(int i = offset; i < image->width() - offset; i++) {
+        for(int j = offset; j < image->height() - offset; j++) {
             // Apply algorithm to each pixel
             result_image->setPixel(i, j, this->apply(image, i, j));
         }
