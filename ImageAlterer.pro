@@ -26,3 +26,6 @@ HEADERS  += mainwindow.h \
     imageembosser.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+    res.qrc

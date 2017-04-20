@@ -20,15 +20,19 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Initialize dropdown menu for choosing the algorithm
     algorithmComboBox = new QComboBox(widget);
-    algorithmComboBox->setFixedSize(WINDOW_WIDTH * 40 / 100, 25);
+    algorithmComboBox->setFixedSize(WINDOW_WIDTH * 80 / 100, 25);
     algorithmComboBox->addItem("Motion blur");
     algorithmComboBox->addItem("Find edges");
     algorithmComboBox->addItem("Emboss");
     layout->addWidget(algorithmComboBox, 1, 0, 1, 1, Qt::AlignCenter);
 
     // Initialize button for applying algorithm
-    applyAlgorithmButton = new QPushButton("Apply algorithm", widget);
-    applyAlgorithmButton->setFixedSize(WINDOW_WIDTH * 60 / 100, 25);
+    applyAlgorithmButton = new QPushButton(widget);
+//    applyAlgorithmButton->setFixedSize(WINDOW_WIDTH * 60 / 100, 25);
+    applyAlgorithmButton->setIcon(QIcon(":/images/button.png"));
+    applyAlgorithmButton->setStyleSheet("background-color: transparent; border: 0;");
+    applyAlgorithmButton->setAutoFillBackground(true);
+    applyAlgorithmButton->setIconSize(QSize(WINDOW_WIDTH * 20 / 100, 100));
     connect(applyAlgorithmButton, SIGNAL(clicked()), this, SLOT(applyAlgorithm()));
     layout->addWidget(applyAlgorithmButton, 1, 1, 1, 1, Qt::AlignCenter);
 
