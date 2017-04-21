@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     applyAlgorithmButton->setIcon(QIcon(":/images/button.png"));
     applyAlgorithmButton->setStyleSheet("background-color: transparent; border: 0;");
     applyAlgorithmButton->setAutoFillBackground(true);
-    applyAlgorithmButton->setIconSize(QSize(WINDOW_WIDTH * 20 / 100, 100));
+    applyAlgorithmButton->setIconSize(QSize(WINDOW_WIDTH * 20 / 100, 50));
     connect(applyAlgorithmButton, SIGNAL(clicked()), this, SLOT(applyAlgorithm()));
     layout->addWidget(applyAlgorithmButton, 1, 1, 1, 1, Qt::AlignCenter);
 
