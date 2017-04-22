@@ -53,6 +53,7 @@ QImage* AbstractAlgorithm::apply(QImage* image)
     // Show progress dialog
     progress_dialog = new QProgressDialog("Applying algorithm...", "Abort", 0, image->width() - offset - 1);
     progress_dialog->setAutoClose(true);
+    progress_dialog->show();
 
     QImage* result_image = new QImage(image->width(), image->height(), image->format());
 
